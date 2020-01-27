@@ -10,6 +10,8 @@ import { NavRoutes } from '../../navigation/navRoutes';
 import { RootState } from '../../store/rootReducer';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { SearchStackParamList } from '../../../App';
+import { Player } from '../Player/store/types';
+import PlayerSearchCard from './components/PlayerSearchCard';
 
 type SearchScreenNavigationProp = StackNavigationProp<SearchStackParamList>;
 
@@ -53,11 +55,12 @@ const SearchScreen = ({ navigation }: Props) => {
             <FlatList
                 ref={ref}
                 data={filteredPlayers}
-                keyExtractor={item => item.id}
-                renderItem={({ item }) => (
-                    <Text onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player: item })}>
-                        {item.name}
-                    </Text>
+                keyExtractor={(item: Player) => item.id}
+                renderItem={({ item }: { item: Player }) => (
+                    <PlayerSearchCard
+                        player={item}
+                        onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player: item })}
+                    />
                 )}
             />
         </View>
