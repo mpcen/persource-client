@@ -1,4 +1,4 @@
-import { NewsActionTypes, NewsState, NewsActions, PlayerNewsItem, PlayerNews } from './types';
+import { NewsActionTypes, NewsState, NewsActions } from './types';
 
 const initialState: NewsState = {
     playerNews: {

@@ -3,13 +3,11 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
-import { Text } from 'react-native-elements';
-import { RootState } from '../../store/rootReducer';
 
+import { RootState } from '../../store/rootReducer';
 import { fetchNews, refetchNews } from './store/actions';
 import { NewsType, PlayerNewsItem } from './store/types';
 import PlayerNewsCard from './components/PlayerNewsCard';
-// import PlayerNewsCard from './components/PlayerNewsCard';
 
 const NewsScreen = () => {
     const dispatch = useDispatch();
@@ -28,7 +26,6 @@ const NewsScreen = () => {
 
     return (
         <SafeAreaView>
-            <Text h2>News</Text>
             <FlatList
                 ref={ref}
                 refreshing={isLoading}

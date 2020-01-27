@@ -66,8 +66,6 @@ const App = () => {
     const authReducer = useSelector((state: RootState) => state.auth);
     const { userToken, isResolvingAuth, isPreLoadComplete } = authReducer;
 
-    // debugger;
-
     return (
         <Stack.Navigator headerMode="float">
             {isResolvingAuth ? (
