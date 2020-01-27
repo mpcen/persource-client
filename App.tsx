@@ -21,26 +21,31 @@ import AccountScreen from './src/screens/Account/AccountScreen';
 import ResolveAuthScreen from './src/screens/Auth/ResolveAuth/ResolveAuthScreen';
 import PreLoadScreen from './src/screens/Auth/PreLoad/PreLoadScreen';
 import ResetPasswordScreen from './src/screens/Auth/ResetPassword/ResetPasswordScreen';
-// import SearchScreen from './src/screens/Search/SearchScreen';
-// import PlayerScreen from './src/screens/Player/PlayerScreen';
+import SearchScreen from './src/screens/Search/SearchScreen';
+import PlayerScreen from './src/screens/Player/PlayerScreen';
 
-// STORE
-const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
+import { Player } from './src/screens/Player/store/types';
+
+// NAVIGATION TYPES
+export type SearchStackParamList = {
+    [NavRoutes.SearchScreen]: undefined;
+    [NavRoutes.PlayerScreen]: { player: Player };
+};
 
 // NAVIGATORS
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
-// const SearchStack = createStackNavigator();
+const SearchStack = createStackNavigator<SearchStackParamList>();
 
-// const SearchStackScreen = () => {
-//     return (
-//         <SearchStack.Navigator headerMode="none">
-//             <SearchStack.Screen name={NavRoutes.SearchScreen} component={SearchScreen} />
-//             <SearchStack.Screen name={NavRoutes.PlayerScreen} component={PlayerScreen} />
-//         </SearchStack.Navigator>
-//     );
-// };
+const SearchStackScreen = () => {
+    return (
+        <SearchStack.Navigator headerMode="none">
+            <SearchStack.Screen name={NavRoutes.SearchScreen} component={SearchScreen} />
+            <SearchStack.Screen name={NavRoutes.PlayerScreen} component={PlayerScreen} />
+        </SearchStack.Navigator>
+    );
+};
 
 const AuthStackNavigator = () => {
     return (
@@ -55,13 +60,14 @@ const AuthStackNavigator = () => {
 const MainTabNavigator = () => {
     return (
         <Tab.Navigator>
-            {/* <Tab.Screen name={NavRoutes.SearchScreen} component={SearchStackScreen} /> */}
             <Tab.Screen name={NavRoutes.NewsScreen} component={NewsScreen} />
+            <Tab.Screen name={NavRoutes.SearchScreen} component={SearchStackScreen} />
             <Tab.Screen name={NavRoutes.AccountScreen} component={AccountScreen} />
         </Tab.Navigator>
     );
 };
 
+// APP
 const App = () => {
     const authReducer = useSelector((state: RootState) => state.auth);
     const { userToken, isResolvingAuth, isPreLoadComplete } = authReducer;
@@ -103,6 +109,9 @@ const App = () => {
         </Stack.Navigator>
     );
 };
+
+// STORE
+const store = createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)));
 
 export default () => {
     return (
