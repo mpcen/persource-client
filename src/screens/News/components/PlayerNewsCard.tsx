@@ -7,8 +7,17 @@ import * as WebBrowser from 'expo-web-browser';
 import { getTeamById } from '../../../util/teams';
 import { Player } from '../../Player/store/types';
 import { PlayerNewsItem } from '../store/types';
+import { TouchableOpacity } from 'react-native-gesture-handler';
+import { NewsScreenNavigationProp } from '../NewsScreen';
+import { NavRoutes } from '../../../navigation/navRoutes';
 
-const PlayerNewsCard = ({ player, playerNewsItem }: { player: Player; playerNewsItem: PlayerNewsItem }) => {
+type Props = {
+    navigation: NewsScreenNavigationProp;
+    player: Player;
+    playerNewsItem: PlayerNewsItem;
+};
+
+const PlayerNewsCard = ({ navigation, player, playerNewsItem }: Props) => {
     const { avatarUrl, name, position, teamId, id } = player;
     const { content, username, time, platform, childNodes, contentId } = playerNewsItem;
     const key = `${platform}-${username}-${contentId}`;
@@ -70,7 +79,10 @@ const PlayerNewsCard = ({ player, playerNewsItem }: { player: Player; playerNews
     return (
         <Card containerStyle={styles.cardContainer}>
             <View testID="card-player-news-item">
-                <View style={styles.cardHeaderContainer}>
+                <TouchableOpacity
+                    style={styles.cardHeaderContainer}
+                    onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player })}
+                >
                     <View>
                         <Avatar rounded source={{ uri: avatarUrl }} />
                     </View>
@@ -82,7 +94,7 @@ const PlayerNewsCard = ({ player, playerNewsItem }: { player: Player; playerNews
                             <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
                         </View>
                     </View>
-                </View>
+                </TouchableOpacity>
 
                 <Divider style={styles.dividerContainer} />
 

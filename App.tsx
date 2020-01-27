@@ -31,12 +31,26 @@ export type SearchStackParamList = {
     [NavRoutes.SearchScreen]: undefined;
     [NavRoutes.PlayerScreen]: { player: Player };
 };
+export type NewsStackParamList = {
+    [NavRoutes.NewsScreen]: undefined;
+    [NavRoutes.PlayerScreen]: { player: Player };
+};
 
 // NAVIGATORS
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
 const SearchStack = createStackNavigator<SearchStackParamList>();
+const NewsStack = createStackNavigator<NewsStackParamList>();
+
+const NewsStackScreen = () => {
+    return (
+        <NewsStack.Navigator headerMode="none">
+            <NewsStack.Screen name={NavRoutes.NewsScreen} component={NewsScreen} />
+            <NewsStack.Screen name={NavRoutes.PlayerScreen} component={PlayerScreen} />
+        </NewsStack.Navigator>
+    );
+};
 
 const SearchStackScreen = () => {
     return (
@@ -60,7 +74,7 @@ const AuthStackNavigator = () => {
 const MainTabNavigator = () => {
     return (
         <Tab.Navigator>
-            <Tab.Screen name={NavRoutes.NewsScreen} component={NewsScreen} />
+            <Tab.Screen name={NavRoutes.NewsScreen} component={NewsStackScreen} />
             <Tab.Screen name={NavRoutes.SearchScreen} component={SearchStackScreen} />
             <Tab.Screen name={NavRoutes.AccountScreen} component={AccountScreen} />
         </Tab.Navigator>

@@ -3,13 +3,20 @@ import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
+import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootState } from '../../store/rootReducer';
 import { fetchNews, refetchNews } from './store/actions';
 import { NewsType, PlayerNewsItem } from './store/types';
 import PlayerNewsCard from './components/PlayerNewsCard';
+import { NewsStackParamList } from '../../../App';
 
-const NewsScreen = () => {
+export type NewsScreenNavigationProp = StackNavigationProp<NewsStackParamList>;
+type Props = {
+    navigation: NewsScreenNavigationProp;
+};
+
+const NewsScreen = ({ navigation }: Props) => {
     const dispatch = useDispatch();
     const newsReducer = useSelector((state: RootState) => state.news);
     const playerReducer = useSelector((state: RootState) => state.player);
@@ -32,7 +39,11 @@ const NewsScreen = () => {
                 data={playerNews.docs}
                 keyExtractor={(item: PlayerNewsItem) => item._id}
                 renderItem={({ item }: { item: PlayerNewsItem }) => (
-                    <PlayerNewsCard player={playerMap[item.player.id]} playerNewsItem={item} />
+                    <PlayerNewsCard
+                        navigation={navigation}
+                        player={playerMap[item.player.id]}
+                        playerNewsItem={item}
+                    />
                 )}
                 onEndReached={() => {
                     const { nextPage } = playerNews;
