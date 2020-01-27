@@ -45,7 +45,7 @@ const SearchScreen = ({ navigation }: Props) => {
     return (
         <View style={{ paddingTop: insets.top }}>
             <Input
-                placeholder="Search"
+                placeholder="Search for a player"
                 autoCapitalize="none"
                 autoCorrect={false}
                 value={text}
