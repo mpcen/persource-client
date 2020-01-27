@@ -1,38 +1,40 @@
-import * as React from 'react';
+import React, { useEffect } from 'react';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { useDispatch, useSelector } from 'react-redux';
 import { FlatList } from 'react-native';
 import { useScrollToTop } from '@react-navigation/native';
 import { Text } from 'react-native-elements';
+import { RootState } from '../../store/rootReducer';
 
-// import { fetchNews, refetchNews } from './store/actions';
-// import { NewsType } from './store/types';
+import { fetchNews, refetchNews } from './store/actions';
+import { NewsType, PlayerNewsItem } from './store/types';
+import PlayerNewsCard from './components/PlayerNewsCard';
 // import PlayerNewsCard from './components/PlayerNewsCard';
 
 const NewsScreen = () => {
-    // const dispatch = useDispatch();
-    // const newsReducer = useSelector(state => state.news);
-    // const playersReducer = useSelector(state => state.players);
-    // const ref = React.createRef();
+    const dispatch = useDispatch();
+    const newsReducer = useSelector((state: RootState) => state.news);
+    const playerReducer = useSelector((state: RootState) => state.player);
+    const ref = React.createRef<any>();
 
-    // const { playerMap } = playersReducer;
-    // const { isLoading, playerNews } = newsReducer;
+    const { playerMap } = playerReducer;
+    const { isLoading, playerNews } = newsReducer;
 
-    // useScrollToTop(ref);
+    useScrollToTop(ref);
 
-    // React.useEffect(() => {
-    //     dispatch(refetchNews());
-    // }, []);
+    useEffect(() => {
+        dispatch(refetchNews());
+    }, []);
 
     return (
         <SafeAreaView>
             <Text h2>News</Text>
-            {/* <FlatList
+            <FlatList
                 ref={ref}
                 refreshing={isLoading}
                 data={playerNews.docs}
-                keyExtractor={item => item._id}
-                renderItem={({ item }) => (
+                keyExtractor={(item: PlayerNewsItem) => item._id}
+                renderItem={({ item }: { item: PlayerNewsItem }) => (
                     <PlayerNewsCard player={playerMap[item.player.id]} playerNewsItem={item} />
                 )}
                 onEndReached={() => {
@@ -47,7 +49,7 @@ const NewsScreen = () => {
                         dispatch(refetchNews());
                     }
                 }}
-            /> */}
+            />
         </SafeAreaView>
     );
 };

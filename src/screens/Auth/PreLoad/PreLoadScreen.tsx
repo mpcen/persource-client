@@ -4,15 +4,15 @@ import { ActivityIndicator } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 
 import { AuthActionTypes } from '../store/types';
-// import { fetchPlayers } from '../../Player/store/actions';
+import { fetchPlayers } from '../../Player/store/actions';
 
 const PreLoadScreen = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
         (async () => {
-            // await dispatch(fetchPlayers());
-            await new Promise(resolve => setTimeout(resolve, 0));
+            await dispatch(fetchPlayers());
+            // await new Promise(resolve => setTimeout(resolve, 0));
 
             dispatch({ type: AuthActionTypes.PRELOAD_COMPLETE });
         })();

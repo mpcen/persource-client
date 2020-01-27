@@ -1,3 +1,4 @@
+import { Dispatch } from 'redux';
 import { AsyncStorage } from 'react-native';
 
 import persourceAPI from '../../../api/persource-api';
@@ -5,7 +6,7 @@ import { AuthActionTypes } from './types';
 import { NavRoutes } from '../../../navigation/navRoutes';
 import * as NavigationService from '../../../navigation/navigationRef';
 
-export const signin = ({ email, password }) => async dispatch => {
+export const signin = ({ email, password }) => async (dispatch: Dispatch) => {
     dispatch({ type: AuthActionTypes.SIGNIN });
 
     try {
@@ -21,7 +22,7 @@ export const signin = ({ email, password }) => async dispatch => {
     }
 };
 
-export const signup = ({ email, password }) => async dispatch => {
+export const signup = ({ email, password }) => async (dispatch: Dispatch) => {
     dispatch({ type: AuthActionTypes.SIGNUP });
 
     try {
@@ -37,13 +38,13 @@ export const signup = ({ email, password }) => async dispatch => {
     }
 };
 
-export const signout = () => async dispatch => {
+export const signout = () => async (dispatch: Dispatch) => {
     await AsyncStorage.removeItem('persource-token');
 
     dispatch({ type: AuthActionTypes.SIGNOUT });
 };
 
-export const resetPassword = ({ email }) => async dispatch => {
+export const resetPassword = ({ email }) => async (dispatch: Dispatch) => {
     if (!email) {
         return dispatch({ type: AuthActionTypes.RESET_PASSWORD_FAIL });
     }

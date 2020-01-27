@@ -1,5 +1,3 @@
-import * as actions from './actions';
-
 // GENERICS
 type AuthToken = string;
 
