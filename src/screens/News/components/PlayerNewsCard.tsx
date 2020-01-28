@@ -12,9 +12,9 @@ import { NewsScreenNavigationProp } from '../NewsScreen';
 import { NavRoutes } from '../../../navigation/navRoutes';
 
 type Props = {
-    navigation: NewsScreenNavigationProp;
     player: Player;
     playerNewsItem: PlayerNewsItem;
+    navigation?: NewsScreenNavigationProp;
 };
 
 const PlayerNewsCard = ({ navigation, player, playerNewsItem }: Props) => {
@@ -80,6 +80,7 @@ const PlayerNewsCard = ({ navigation, player, playerNewsItem }: Props) => {
         <Card containerStyle={styles.cardContainer}>
             <View testID="card-player-news-item">
                 <TouchableOpacity
+                    disabled={navigation ? false : true}
                     style={styles.cardHeaderContainer}
                     onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player })}
                 >

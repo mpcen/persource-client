@@ -49,7 +49,7 @@ const NewsScreen = ({ navigation }: Props) => {
                     const { nextPage } = playerNews;
 
                     if (!isLoading && nextPage) {
-                        dispatch(fetchNews({ page: nextPage, newsType: NewsType.All }));
+                        dispatch(fetchNews({ page: nextPage }));
                     }
                 }}
                 onRefresh={() => {

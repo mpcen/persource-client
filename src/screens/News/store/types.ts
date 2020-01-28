@@ -38,12 +38,12 @@ export type NewsState = {
 
 // ACTION TYPES
 export enum NewsActionTypes {
-    FETCH_PLAYER_NEWS = 'FETCH_PLAYER_NEWS',
-    FETCH_PLAYER_NEWS_SUCCESS = 'FETCH_PLAYER_NEWS_SUCCESS',
-    FETCH_PLAYER_NEWS_FAIL = 'FETCH_PLAYER_NEWS_FAIL',
-    REFETCH_PLAYER_NEWS = 'REFETCH_PLAYER_NEWS',
-    REFETCH_PLAYER_NEWS_SUCCESS = 'REFETCH_PLAYER_NEWS_SUCCESS',
-    REFETCH_PLAYER_NEWS_FAIL = 'REFETCH_PLAYER_NEWS_FAIL'
+    FETCH_PLAYER_NEWS = 'news/fetchPlayerNews',
+    FETCH_PLAYER_NEWS_SUCCESS = 'news/fetchPlayerNews_success',
+    FETCH_PLAYER_NEWS_FAIL = 'news/fetchPlayerNews_fail',
+    REFETCH_PLAYER_NEWS = 'news/refetchPlayerNews',
+    REFETCH_PLAYER_NEWS_SUCCESS = 'news/refetchPlayerNews_success',
+    REFETCH_PLAYER_NEWS_FAIL = 'news/refetchPlayerNews_fail'
 }
 
 // ACTIONS - FETCH_PLAYER_NEWS

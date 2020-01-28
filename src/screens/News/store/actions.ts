@@ -3,13 +3,11 @@ import { Dispatch } from 'redux';
 import persourceAPI from '../../../api/persource-api';
 import { NewsActionTypes, NewsType } from './types';
 
-export const fetchNews = ({ page, newsType }: { page: number; newsType: NewsType }) => async (
-    dispatch: Dispatch
-) => {
+export const fetchNews = ({ page }: { page: number }) => async (dispatch: Dispatch) => {
     dispatch({ type: NewsActionTypes.FETCH_PLAYER_NEWS });
 
     try {
-        const response = await persourceAPI.get(`/playerNews?newsType=${newsType}&page=${page}`);
+        const response = await persourceAPI.get(`/playerNews?newsType=${NewsType.All}&page=${page}`);
         dispatch({ type: NewsActionTypes.FETCH_PLAYER_NEWS_SUCCESS, payload: response.data });
     } catch (err) {
         dispatch({
