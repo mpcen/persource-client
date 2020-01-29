@@ -15,13 +15,13 @@ const initialState: NewsState = {
 const newsReducer = (state = initialState, action: NewsActions): NewsState => {
     switch (action.type) {
         // FETCH_NEWS
-        case NewsActionTypes.FETCH_PLAYER_NEWS:
+        case NewsActionTypes.FETCH_NEWS:
             return {
                 ...state,
                 isLoading: true
             };
 
-        case NewsActionTypes.FETCH_PLAYER_NEWS_SUCCESS:
+        case NewsActionTypes.FETCH_NEWS_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
@@ -35,7 +35,7 @@ const newsReducer = (state = initialState, action: NewsActions): NewsState => {
                 }
             };
 
-        case NewsActionTypes.FETCH_PLAYER_NEWS_FAIL:
+        case NewsActionTypes.FETCH_NEWS_FAIL:
             return {
                 ...state,
                 isLoading: false,
@@ -43,13 +43,13 @@ const newsReducer = (state = initialState, action: NewsActions): NewsState => {
             };
 
         // REFETCH_NEWS
-        case NewsActionTypes.REFETCH_PLAYER_NEWS:
+        case NewsActionTypes.REFETCH_NEWS:
             return {
                 ...state,
                 isLoading: true
             };
 
-        case NewsActionTypes.REFETCH_PLAYER_NEWS_SUCCESS:
+        case NewsActionTypes.REFETCH_NEWS_SUCCESS:
             return {
                 ...state,
                 isLoading: false,
@@ -63,7 +63,7 @@ const newsReducer = (state = initialState, action: NewsActions): NewsState => {
                 }
             };
 
-        case NewsActionTypes.REFETCH_PLAYER_NEWS_FAIL:
+        case NewsActionTypes.REFETCH_NEWS_FAIL:
             return {
                 ...state,
                 isLoading: false,

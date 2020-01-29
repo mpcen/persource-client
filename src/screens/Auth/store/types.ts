@@ -13,20 +13,20 @@ export type AuthState = {
 
 // ACTION TYPES
 export enum AuthActionTypes {
-    RESOLVE_AUTH_SUCCESS = 'RESOLVE_AUTH_SUCCESS',
-    RESOLVE_AUTH_FAIL = 'RESOLVE_AUTH_FAIL',
-    SIGNIN = 'SIGNIN',
-    SIGNIN_SUCCESS = 'SIGNIN_SUCCESS',
-    SIGNIN_FAIL = 'SIGNIN_FAIL',
-    SIGNUP = 'SIGNUP',
-    SIGNUP_SUCCESS = 'SIGNUP_SUCCESS',
-    SIGNUP_FAIL = 'SIGNUP_FAIL',
-    SIGNOUT = 'SIGNOUT',
-    PRELOAD_COMPLETE = 'PRELOAD_COMPLETE',
-    CLEAR_STATE = 'CLEAR_STATE',
-    RESET_PASSWORD = 'RESET_PASSWORD',
-    RESET_PASSWORD_SUCCESS = 'RESET_PASSWORD_SUCCESS',
-    RESET_PASSWORD_FAIL = 'RESET_PASSWORD_FAIL'
+    RESOLVE_AUTH_SUCCESS = 'auth/resolveAuth_success',
+    RESOLVE_AUTH_FAIL = 'auth/resolveAuth_fail',
+    SIGNIN = 'auth/signin',
+    SIGNIN_SUCCESS = 'auth/signin_success',
+    SIGNIN_FAIL = 'auth/signin_fail',
+    SIGNUP = 'auth/signup',
+    SIGNUP_SUCCESS = 'auth/signup_success',
+    SIGNUP_FAIL = 'auth/signup_fail',
+    SIGNOUT = 'auth/signout',
+    PRELOAD_COMPLETE = 'auth/preload_complete',
+    CLEAR_STATE = 'auth/clearState',
+    RESET_PASSWORD = 'auth/resetPassword',
+    RESET_PASSWORD_SUCCESS = 'auth/resetPassword_success',
+    RESET_PASSWORD_FAIL = 'auth/resetPassword_fail'
 }
 
 // ACTIONS - SIGNUP
@@ -107,4 +107,4 @@ export type AuthActions =
     | ClearError
     | PreLoadComplete
     | ResolveAuthSuccess
-    | ResolveAuthFail;
+    | ResolveAuthFail

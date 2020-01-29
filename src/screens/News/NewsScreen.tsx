@@ -7,8 +7,8 @@ import { StackNavigationProp } from '@react-navigation/stack';
 
 import { RootState } from '../../store/rootReducer';
 import { fetchNews, refetchNews } from './store/actions';
-import { NewsType, PlayerNewsItem } from './store/types';
-import PlayerNewsCard from './components/PlayerNewsCard';
+import { NewsType, NewsItem } from './store/types';
+import NewsCard from './components/NewsCard';
 import { NewsStackParamList } from '../../../App';
 
 export type NewsScreenNavigationProp = StackNavigationProp<NewsStackParamList>;
@@ -37,13 +37,9 @@ const NewsScreen = ({ navigation }: Props) => {
                 ref={ref}
                 refreshing={isLoading}
                 data={playerNews.docs}
-                keyExtractor={(item: PlayerNewsItem) => item._id}
-                renderItem={({ item }: { item: PlayerNewsItem }) => (
-                    <PlayerNewsCard
-                        navigation={navigation}
-                        player={playerMap[item.player.id]}
-                        playerNewsItem={item}
-                    />
+                keyExtractor={(item: NewsItem) => item._id}
+                renderItem={({ item }: { item: NewsItem }) => (
+                    <NewsCard navigation={navigation} player={playerMap[item.player.id]} newsItem={item} />
                 )}
                 onEndReached={() => {
                     const { nextPage } = playerNews;

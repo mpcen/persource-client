@@ -3,14 +3,25 @@ import { PlayerActions, PlayerActionTypes, PlayerState } from './types';
 const initialState: PlayerState = {
     playerMap: {},
     isLoading: false,
-    playerNews: {
+    isLoadingFromNews: false,
+    isLoadingFromSearch: false,
+    playerNewsFromNews: {
         docs: [],
         nextPage: null,
         page: null,
         prevPage: null,
         totalPages: null
     },
-    error: false
+    playerNewsFromSearch: {
+        docs: [],
+        nextPage: null,
+        page: null,
+        prevPage: null,
+        totalPages: null
+    },
+    error: false,
+    errorFromNews: false,
+    errorFromSearch: false
 };
 
 export const playerReducer = (state = initialState, action: PlayerActions): PlayerState => {
@@ -37,20 +48,20 @@ export const playerReducer = (state = initialState, action: PlayerActions): Play
                 error: true
             };
 
-        // FETCH_PLAYER_NEWS
-        case PlayerActionTypes.FETCH_PLAYER_NEWS:
+        // FETCH_PLAYER_NEWS_FROM_NEWS
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS:
             return {
                 ...state,
-                isLoading: true
+                isLoadingFromNews: true
             };
 
-        case PlayerActionTypes.FETCH_PLAYER_NEWS_SUCCESS:
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                error: false,
-                playerNews: {
-                    docs: [...state.playerNews.docs, ...action.payload.docs],
+                isLoadingFromNews: false,
+                errorFromNews: false,
+                playerNewsFromNews: {
+                    docs: [...state.playerNewsFromNews.docs, ...action.payload.docs],
                     page: action.payload.page,
                     nextPage: action.payload.nextPage,
                     prevPage: action.payload.prevPage,
@@ -58,26 +69,54 @@ export const playerReducer = (state = initialState, action: PlayerActions): Play
                 }
             };
 
-        case PlayerActionTypes.FETCH_PLAYER_NEWS_FAIL:
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_FAIL:
             return {
                 ...state,
-                isLoading: false,
-                error: true
+                isLoadingFromNews: false,
+                errorFromNews: true
             };
 
-        // REFETCH_NEWS
-        case PlayerActionTypes.REFETCH_PLAYER_NEWS:
+        // FETCH_PLAYER_NEWS_FROM_SEARCH
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH:
             return {
                 ...state,
-                isLoading: true
+                isLoadingFromSearch: true
             };
 
-        case PlayerActionTypes.REFETCH_PLAYER_NEWS_SUCCESS:
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS:
             return {
                 ...state,
-                isLoading: false,
-                error: false,
-                playerNews: {
+                isLoadingFromSearch: false,
+                errorFromSearch: false,
+                playerNewsFromSearch: {
+                    docs: [...state.playerNewsFromNews.docs, ...action.payload.docs],
+                    page: action.payload.page,
+                    nextPage: action.payload.nextPage,
+                    prevPage: action.payload.prevPage,
+                    totalPages: action.payload.totalPages
+                }
+            };
+
+        case PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_FAIL:
+            return {
+                ...state,
+                isLoadingFromSearch: false,
+                errorFromSearch: true
+            };
+
+        // REFETCH_NEWS_FROM_NEWS
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS:
+            return {
+                ...state,
+                isLoadingFromNews: true
+            };
+
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS:
+            return {
+                ...state,
+                isLoadingFromNews: false,
+                errorFromNews: false,
+                playerNewsFromNews: {
                     docs: action.payload.docs,
                     page: action.payload.page,
                     nextPage: action.payload.nextPage,
@@ -86,17 +125,59 @@ export const playerReducer = (state = initialState, action: PlayerActions): Play
                 }
             };
 
-        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FAIL:
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_FAIL:
             return {
                 ...state,
-                isLoading: false,
-                error: true
+                isLoadingFromNews: false,
+                errorFromNews: true
             };
 
-        case PlayerActionTypes.CLEAR_PLAYER_NEWS:
+        // REFETCH_NEWS_FROM_SEARCH
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH:
             return {
                 ...state,
-                playerNews: {
+                isLoadingFromSearch: true
+            };
+
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS:
+            return {
+                ...state,
+                isLoadingFromSearch: false,
+                errorFromSearch: false,
+                playerNewsFromSearch: {
+                    docs: action.payload.docs,
+                    page: action.payload.page,
+                    nextPage: action.payload.nextPage,
+                    prevPage: action.payload.prevPage,
+                    totalPages: action.payload.totalPages
+                }
+            };
+
+        case PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_FAIL:
+            return {
+                ...state,
+                isLoadingFromSearch: false,
+                errorFromSearch: true
+            };
+
+        // CLEAR_PLAYER_NEWS_FROM_NEWS
+        case PlayerActionTypes.CLEAR_PLAYER_NEWS_FROM_NEWS:
+            return {
+                ...state,
+                playerNewsFromNews: {
+                    docs: [],
+                    nextPage: null,
+                    page: null,
+                    prevPage: null,
+                    totalPages: null
+                }
+            };
+
+        // CLEAR_PLAYER_NEWS_FROM_SEARCJ
+        case PlayerActionTypes.CLEAR_PLAYER_NEWS_FROM_SEARCH:
+            return {
+                ...state,
+                playerNewsFromSearch: {
                     docs: [],
                     nextPage: null,
                     page: null,

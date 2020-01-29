@@ -1,12 +1,12 @@
 // GENERICS
-export interface PlayerNews {
-    docs: PlayerNewsItem[];
+export interface News {
+    docs: NewsItem[];
     page: number | null;
     totalPages: number;
     prevPage: number | null;
     nextPage: number | null;
 }
-export type PlayerNewsItem = {
+export type NewsItem = {
     _id: string;
     platform: string;
     username: string;
@@ -31,52 +31,52 @@ export type ChildNode = {
 
 // STATE
 export type NewsState = {
-    playerNews: PlayerNews;
+    playerNews: News;
     isLoading: boolean;
     error: boolean;
 };
 
 // ACTION TYPES
 export enum NewsActionTypes {
-    FETCH_PLAYER_NEWS = 'news/fetchPlayerNews',
-    FETCH_PLAYER_NEWS_SUCCESS = 'news/fetchPlayerNews_success',
-    FETCH_PLAYER_NEWS_FAIL = 'news/fetchPlayerNews_fail',
-    REFETCH_PLAYER_NEWS = 'news/refetchPlayerNews',
-    REFETCH_PLAYER_NEWS_SUCCESS = 'news/refetchPlayerNews_success',
-    REFETCH_PLAYER_NEWS_FAIL = 'news/refetchPlayerNews_fail'
+    FETCH_NEWS = 'news/fetchNews',
+    FETCH_NEWS_SUCCESS = 'news/fetchNews_success',
+    FETCH_NEWS_FAIL = 'news/fetchNews_fail',
+    REFETCH_NEWS = 'news/refetchNews',
+    REFETCH_NEWS_SUCCESS = 'news/refetchNews_success',
+    REFETCH_NEWS_FAIL = 'news/refetchNews_fail'
 }
 
-// ACTIONS - FETCH_PLAYER_NEWS
-export type FetchPlayerNews = {
-    type: NewsActionTypes.FETCH_PLAYER_NEWS;
+// ACTIONS - FETCH_NEWS
+export type FetchNews = {
+    type: NewsActionTypes.FETCH_NEWS;
 };
-export type FetchPlayerNewsSuccess = {
-    type: NewsActionTypes.FETCH_PLAYER_NEWS_SUCCESS;
-    payload: PlayerNews;
+export type FetchNewsSuccess = {
+    type: NewsActionTypes.FETCH_NEWS_SUCCESS;
+    payload: News;
 };
-export type FetchPlayerNewsFail = {
-    type: NewsActionTypes.FETCH_PLAYER_NEWS_FAIL;
+export type FetchNewsFail = {
+    type: NewsActionTypes.FETCH_NEWS_FAIL;
     payload: string;
 };
 
-// ACTIONS - REFETCH_PLAYER_NEWS
-export type RefetchPlayerNews = {
-    type: NewsActionTypes.REFETCH_PLAYER_NEWS;
+// ACTIONS - REFETCH_NEWS
+export type RefetchNews = {
+    type: NewsActionTypes.REFETCH_NEWS;
 };
-export type RefetchPlayerNewsSuccess = {
-    type: NewsActionTypes.REFETCH_PLAYER_NEWS_SUCCESS;
-    payload: PlayerNews;
+export type RefetchNewsSuccess = {
+    type: NewsActionTypes.REFETCH_NEWS_SUCCESS;
+    payload: News;
 };
-export type RefetchPlayerNewsFail = {
-    type: NewsActionTypes.REFETCH_PLAYER_NEWS_FAIL;
+export type RefetchNewsFail = {
+    type: NewsActionTypes.REFETCH_NEWS_FAIL;
     payload: string;
 };
 
 // prettier-ignore
 export type NewsActions =
-    | FetchPlayerNews
-    | FetchPlayerNewsSuccess
-    | FetchPlayerNewsFail
-    | RefetchPlayerNews
-    | RefetchPlayerNewsSuccess
-    | RefetchPlayerNewsFail;
+    | FetchNews
+    | FetchNewsSuccess
+    | FetchNewsFail
+    | RefetchNews
+    | RefetchNewsSuccess
+    | RefetchNewsFail;

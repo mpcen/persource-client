@@ -6,20 +6,20 @@ import * as WebBrowser from 'expo-web-browser';
 
 import { getTeamById } from '../../../util/teams';
 import { Player } from '../../Player/store/types';
-import { PlayerNewsItem } from '../store/types';
+import { NewsItem } from '../store/types';
 import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NewsScreenNavigationProp } from '../NewsScreen';
 import { NavRoutes } from '../../../navigation/navRoutes';
 
 type Props = {
     player: Player;
-    playerNewsItem: PlayerNewsItem;
+    newsItem: NewsItem;
     navigation?: NewsScreenNavigationProp;
 };
 
-const PlayerNewsCard = ({ navigation, player, playerNewsItem }: Props) => {
+const NewsCard = ({ navigation, player, newsItem }: Props) => {
     const { avatarUrl, name, position, teamId, id } = player;
-    const { content, username, time, platform, childNodes, contentId } = playerNewsItem;
+    const { content, username, time, platform, childNodes, contentId } = newsItem;
     const key = `${platform}-${username}-${contentId}`;
 
     const renderChildNodes = () => {
@@ -169,4 +169,4 @@ const styles = StyleSheet.create({
     }
 });
 
-export default React.memo(PlayerNewsCard);
+export default React.memo(NewsCard);

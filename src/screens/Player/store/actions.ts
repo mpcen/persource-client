@@ -3,6 +3,7 @@ import { Dispatch } from 'redux';
 import persourceAPI from '../../../api/persource-api';
 import { PlayerActionTypes, Player, PlayerMap } from './types';
 import { NewsType } from '../../News/store/types';
+import { NavRoutes } from '../../../navigation/navRoutes';
 
 export const fetchPlayers = () => async (dispatch: Dispatch) => {
     dispatch({ type: PlayerActionTypes.FETCH_PLAYERS });
@@ -18,34 +19,92 @@ export const fetchPlayers = () => async (dispatch: Dispatch) => {
     }
 };
 
-export const fetchPlayerNews = ({ page, playerId }: { page: number; playerId: string }) => async (
-    dispatch: Dispatch
-) => {
-    dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS });
+export const fetchPlayerNews = ({
+    page,
+    playerId,
+    stackNavRoute
+}: {
+    page: number;
+    playerId: string;
+    stackNavRoute: NavRoutes;
+}) => async (dispatch: Dispatch) => {
+    switch (stackNavRoute) {
+        case NavRoutes.NewsScreen:
+            dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS });
+
+        case NavRoutes.SearchScreen:
+            dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH });
+    }
 
     try {
         const response = await persourceAPI.get(
             `/playerNews?playerId=${playerId}&newsType=${NewsType.Individual}&page=${page}`
         );
-        dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_SUCCESS, payload: response.data });
+
+        switch (stackNavRoute) {
+            case NavRoutes.NewsScreen:
+                return dispatch({
+                    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS,
+                    payload: response.data
+                });
+
+            case NavRoutes.SearchScreen:
+                return dispatch({
+                    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS,
+                    payload: response.data
+                });
+        }
     } catch (err) {
-        dispatch({
-            type: PlayerActionTypes.FETCH_PLAYER_NEWS_FAIL
-        });
+        switch (stackNavRoute) {
+            case NavRoutes.NewsScreen:
+                return dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_FAIL });
+
+            case NavRoutes.SearchScreen:
+                return dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_FAIL });
+        }
     }
 };
 
-export const refetchPlayerNews = ({ playerId }: { playerId: string }) => async (dispatch: Dispatch) => {
-    dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS });
+export const refetchPlayerNews = ({
+    playerId,
+    stackNavRoute
+}: {
+    playerId: string;
+    stackNavRoute: NavRoutes;
+}) => async (dispatch: Dispatch) => {
+    switch (stackNavRoute) {
+        case NavRoutes.NewsScreen:
+            dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS });
+
+        case NavRoutes.SearchScreen:
+            dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH });
+    }
 
     try {
         const response = await persourceAPI.get(
             `/playerNews?playerId=${playerId}&newsType=${NewsType.Individual}&page=1`
         );
-        dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_SUCCESS, payload: response.data });
+
+        switch (stackNavRoute) {
+            case NavRoutes.NewsScreen:
+                return dispatch({
+                    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS,
+                    payload: response.data
+                });
+
+            case NavRoutes.SearchScreen:
+                return dispatch({
+                    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS,
+                    payload: response.data
+                });
+        }
     } catch (err) {
-        dispatch({
-            type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FAIL
-        });
+        switch (stackNavRoute) {
+            case NavRoutes.NewsScreen:
+                return dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_FAIL });
+
+            case NavRoutes.SearchScreen:
+                return dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_FAIL });
+        }
     }
 };

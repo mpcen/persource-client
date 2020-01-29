@@ -19,8 +19,13 @@ export type PlayerMap = {
 export type PlayerState = {
     playerMap: PlayerMap;
     isLoading: boolean;
-    playerNews: PlayerNews;
+    isLoadingFromNews: boolean;
+    isLoadingFromSearch: boolean;
+    playerNewsFromNews: PlayerNews;
+    playerNewsFromSearch: PlayerNews;
     error: boolean;
+    errorFromNews: boolean;
+    errorFromSearch: boolean;
 };
 
 // ACTION TYPES
@@ -28,13 +33,20 @@ export enum PlayerActionTypes {
     FETCH_PLAYERS = 'player/fetchPlayer',
     FETCH_PLAYERS_SUCCESS = 'player/fetchPlayer_success',
     FETCH_PLAYERS_FAIL = 'player/fetchPlayer_fail',
-    FETCH_PLAYER_NEWS = 'player/fetchPlayerNews',
-    FETCH_PLAYER_NEWS_SUCCESS = 'player/fetchPlayerNews_success',
-    FETCH_PLAYER_NEWS_FAIL = 'player/fetchPlayerNews_fail',
-    REFETCH_PLAYER_NEWS = 'player/refetchPlayerNews',
-    REFETCH_PLAYER_NEWS_SUCCESS = 'player/refetchPlayerNews_success',
-    REFETCH_PLAYER_NEWS_FAIL = 'player/refetchPlayerNews_fail',
-    CLEAR_PLAYER_NEWS = 'player/clearPlayerNews'
+    FETCH_PLAYER_NEWS_FROM_NEWS = 'player/fetchPlayerNewsFromNews',
+    FETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS = 'player/fetchPlayerNewsfromNews_success',
+    FETCH_PLAYER_NEWS_FROM_NEWS_FAIL = 'player/fetchPlayerNewsfromNews_fail',
+    FETCH_PLAYER_NEWS_FROM_SEARCH = 'player/fetchPlayerNewsFromSearch',
+    FETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS = 'player/fetchPlayerNewsFromSearch_success',
+    FETCH_PLAYER_NEWS_FROM_SEARCH_FAIL = 'player/fetchPlayerNewsFromSearch_fail',
+    REFETCH_PLAYER_NEWS_FROM_NEWS = 'player/refetchPlayerNewsFromNews',
+    REFETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS = 'player/refetchPlayerNewsFromNews_success',
+    REFETCH_PLAYER_NEWS_FROM_NEWS_FAIL = 'player/refetchPlayerNewsFromNews_fail',
+    REFETCH_PLAYER_NEWS_FROM_SEARCH = 'player/refetchPlayerNewsFromSearch',
+    REFETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS = 'player/refetchPlayerNewsFromSearch_success',
+    REFETCH_PLAYER_NEWS_FROM_SEARCH_FAIL = 'player/refetchPlayerNewsFromSearch_fail',
+    CLEAR_PLAYER_NEWS_FROM_NEWS = 'player/clearPlayerNewsFromNews',
+    CLEAR_PLAYER_NEWS_FROM_SEARCH = 'player/clearPlayerNewsFromSearch'
 }
 
 // ACTIONS - FETCH_PLAYERS
@@ -49,34 +61,64 @@ export type FetchPlayersFail = {
     type: PlayerActionTypes.FETCH_PLAYERS_FAIL;
 };
 
-// ACTIONS - FETCH_PLAYER_NEWS
-export type FetchPlayerNews = {
-    type: PlayerActionTypes.FETCH_PLAYER_NEWS;
+// ACTIONS - FETCH_PLAYER_NEWS_FROM_NEWS
+export type FetchPlayerNewsFromNews = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS;
 };
-export type FetchPlayerNewsSuccess = {
-    type: PlayerActionTypes.FETCH_PLAYER_NEWS_SUCCESS;
+export type FetchPlayerNewsFromNewsSuccess = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS;
     payload: PlayerNews;
 };
-export type FetchPlayerNewsFail = {
-    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FAIL;
+export type FetchPlayerNewsFromNewsFail = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_FAIL;
 };
 
-// ACTIONS - REFETCH_PLAYER_NEWS
-export type RefetchPlayerNews = {
-    type: PlayerActionTypes.REFETCH_PLAYER_NEWS;
+// ACTIONS - FETCH_PLAYER_NEWS_FROM_SEARCH
+export type FetchPlayerNewsFromSearch = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH;
 };
-export type RefetchPlayerNewsSuccess = {
-    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_SUCCESS;
+export type FetchPlayerNewsFromSearchSuccess = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS;
     payload: PlayerNews;
 };
-export type RefetchPlayerNewsFail = {
-    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FAIL;
+export type FetchPlayerNewsFromSearchFail = {
+    type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_FAIL;
+};
+
+// ACTIONS - REFETCH_PLAYER_NEWS_FROM_NEWS
+export type RefetchPlayerNewsFromNews = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS;
+};
+export type RefetchPlayerNewsFromNewsSuccess = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS;
+    payload: PlayerNews;
+};
+export type RefetchPlayerNewsFromNewsFail = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_FAIL;
     payload: string;
 };
 
-// ACTIONS - CLEAR_PLAYER_NEWS
-export type ClearPlayerNews = {
-    type: PlayerActionTypes.CLEAR_PLAYER_NEWS;
+// ACTIONS - REFETCH_PLAYER_NEWS_FROM_NEWS
+export type RefetchPlayerNewsFromSearch = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH;
+};
+export type RefetchPlayerNewsFromSearchSuccess = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS;
+    payload: PlayerNews;
+};
+export type RefetchPlayerNewsFromSearchFail = {
+    type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_FAIL;
+    payload: string;
+};
+
+// ACTIONS - CLEAR_PLAYER_NEWS_FROM_NEWS
+export type ClearPlayerNewsFromNews = {
+    type: PlayerActionTypes.CLEAR_PLAYER_NEWS_FROM_NEWS;
+};
+
+// ACTIONS - CLEAR_PLAYER_NEWS_FROM_SEARCH
+export type ClearPlayerNewsFromSearch = {
+    type: PlayerActionTypes.CLEAR_PLAYER_NEWS_FROM_SEARCH;
 };
 
 // prettier-ignore
@@ -84,10 +126,17 @@ export type PlayerActions =
     | FetchPlayers
     | FetchPlayersSuccess
     | FetchPlayersFail
-    | FetchPlayerNews
-    | FetchPlayerNewsSuccess
-    | FetchPlayerNewsFail
-    | RefetchPlayerNews
-    | RefetchPlayerNewsSuccess
-    | RefetchPlayerNewsFail
-    | ClearPlayerNews
+    | FetchPlayerNewsFromNews
+    | FetchPlayerNewsFromNewsSuccess
+    | FetchPlayerNewsFromNewsFail
+    | FetchPlayerNewsFromSearch
+    | FetchPlayerNewsFromSearchSuccess
+    | FetchPlayerNewsFromSearchFail
+    | RefetchPlayerNewsFromNews
+    | RefetchPlayerNewsFromNewsSuccess
+    | RefetchPlayerNewsFromNewsFail
+    | RefetchPlayerNewsFromSearch
+    | RefetchPlayerNewsFromSearchSuccess
+    | RefetchPlayerNewsFromSearchFail
+    | ClearPlayerNewsFromNews
+    | ClearPlayerNewsFromSearch

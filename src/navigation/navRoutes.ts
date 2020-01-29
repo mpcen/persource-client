@@ -7,7 +7,7 @@ export enum NavRoutes {
     ResolveAuthScreen = 'ResolveAuthScreen',
     PreLoadScreen = 'PreLoadScreen',
     SearchScreen = 'SearchScreen',
-    PlayerScreen = 'PlayerScreeScreenn',
+    PlayerScreen = 'PlayerScreen',
     AuthFlow = 'AuthFlow',
     MainFlow = 'MainFlow'
 }
