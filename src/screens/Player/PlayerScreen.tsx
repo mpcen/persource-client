@@ -1,17 +1,18 @@
-import React from 'react';
-import { Text, FlatList } from 'react-native';
+import React, { useState } from 'react';
+import { FlatList, View, StyleSheet, TouchableOpacity } from 'react-native';
 import { SafeAreaView } from 'react-native-safe-area-context';
 import { RouteProp } from '@react-navigation/native';
 import { useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
+import { ButtonGroup, Avatar, Card, Text } from 'react-native-elements';
 
 import { NewsStackParamList, SearchStackParamList } from '../../../App';
 import { NavRoutes } from '../../navigation/navRoutes';
 import { fetchPlayerNews, refetchPlayerNews } from './store/actions';
 import { NewsItem } from '../News/store/types';
 import NewsCard from '../News/components/NewsCard';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { usePlayerNews } from './hooks/usePlayerNews';
+import { getTeamById } from '../../util/teams';
 
 type PlayerStackParamList = NewsStackParamList | SearchStackParamList;
 type PlayerScreenNavigationProp = StackNavigationProp<PlayerStackParamList>;
@@ -21,11 +22,17 @@ type Props = {
     navigation: PlayerScreenNavigationProp;
     route: PlayerScreenFromNewsRouteProp | PlayerScreenFromSearchRouteProp;
 };
+enum PlayerScreenTab {
+    News,
+    Research
+}
 
 const PlayerScreen = ({ route, navigation }: Props) => {
     const { player, stackNavRoute } = route.params;
+    const [selectedTabIndex, setSelectedTabIndex] = useState(PlayerScreenTab.News);
     const [isLoading, playerNews, dispatch] = usePlayerNews(player, stackNavRoute);
     const ref = React.createRef<any>();
+    const { name, position, teamId, avatarUrl } = player;
 
     useScrollToTop(ref);
 
@@ -34,6 +41,28 @@ const PlayerScreen = ({ route, navigation }: Props) => {
             <TouchableOpacity onPress={() => navigation.pop()}>
                 <Text>BACK</Text>
             </TouchableOpacity>
+
+            <Card>
+                <View style={styles.cardContainer}>
+                    <Avatar size="large" rounded source={{ uri: avatarUrl }} />
+
+                    <View style={styles.playerInfoContainer}>
+                        <Text style={styles.playerName}>{name}</Text>
+                        <View style={styles.playerSubInfoContainer}>
+                            <Text style={styles.playerInfoText}>{position}</Text>
+                            <Text style={styles.playerInfoText}> | </Text>
+                            <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
+                        </View>
+                    </View>
+                </View>
+            </Card>
+
+            <ButtonGroup
+                onPress={setSelectedTabIndex}
+                selectedIndex={selectedTabIndex}
+                buttons={['News', 'Analytics']}
+            />
+
             <FlatList
                 ref={ref}
                 refreshing={isLoading}
@@ -56,5 +85,13 @@ const PlayerScreen = ({ route, navigation }: Props) => {
         </SafeAreaView>
     );
 };
+
+const styles = StyleSheet.create({
+    cardContainer: { flexDirection: 'row' },
+    playerInfoContainer: { flex: 1, marginLeft: 8 },
+    playerName: { fontSize: 20 },
+    playerSubInfoContainer: { flexDirection: 'row' },
+    playerInfoText: { fontSize: 14 }
+});
 
 export default PlayerScreen;

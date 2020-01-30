@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import { Card, Text, Avatar, Divider, Icon } from 'react-native-elements';
 import formatDistance from 'date-fns/formatDistance';
 import * as WebBrowser from 'expo-web-browser';
@@ -7,7 +7,6 @@ import * as WebBrowser from 'expo-web-browser';
 import { getTeamById } from '../../../util/teams';
 import { Player } from '../../Player/store/types';
 import { NewsItem } from '../store/types';
-import { TouchableOpacity } from 'react-native-gesture-handler';
 import { NewsScreenNavigationProp } from '../NewsScreen';
 import { NavRoutes } from '../../../navigation/navRoutes';
 
