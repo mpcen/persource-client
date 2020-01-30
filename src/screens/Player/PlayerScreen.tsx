@@ -68,6 +68,7 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                 ref={ref}
                 refreshing={isLoading}
                 data={playerNews.docs}
+                ListEmptyComponent={!isLoading && <Text>No player news for {player.name}</Text>}
                 keyExtractor={(item: NewsItem) => item._id}
                 renderItem={({ item }: { item: NewsItem }) => <NewsCard player={player} newsItem={item} />}
                 onEndReached={() => {
@@ -84,7 +85,7 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                 }}
             />
 
-            {!isLoading && (
+            {selectedTabIndex === PlayerScreenTab.Analytics && (
                 <View style={selectedTabIndex === PlayerScreenTab.Analytics ? null : styles.hideList}>
                     <Text>Analytics articles, charts, etc go in here</Text>
                 </View>
