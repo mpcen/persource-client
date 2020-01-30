@@ -3,8 +3,8 @@ import { PlayerActions, PlayerActionTypes, PlayerState } from './types';
 const initialState: PlayerState = {
     playerMap: {},
     isLoading: false,
-    isLoadingFromNews: false,
-    isLoadingFromSearch: false,
+    isLoadingFromNews: true,
+    isLoadingFromSearch: true,
     playerNewsFromNews: {
         docs: [],
         nextPage: null,

@@ -24,7 +24,7 @@ type Props = {
 };
 enum PlayerScreenTab {
     News,
-    Research
+    Analytics
 }
 
 const PlayerScreen = ({ route, navigation }: Props) => {
@@ -64,6 +64,7 @@ const PlayerScreen = ({ route, navigation }: Props) => {
             />
 
             <FlatList
+                style={selectedTabIndex === PlayerScreenTab.News ? null : styles.hideList}
                 ref={ref}
                 refreshing={isLoading}
                 data={playerNews.docs}
@@ -82,6 +83,12 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                     }
                 }}
             />
+
+            {!isLoading && (
+                <View style={selectedTabIndex === PlayerScreenTab.Analytics ? null : styles.hideList}>
+                    <Text>Analytics articles, charts, etc go in here</Text>
+                </View>
+            )}
         </SafeAreaView>
     );
 };
@@ -91,7 +98,8 @@ const styles = StyleSheet.create({
     playerInfoContainer: { flex: 1, marginLeft: 8 },
     playerName: { fontSize: 20 },
     playerSubInfoContainer: { flexDirection: 'row' },
-    playerInfoText: { fontSize: 14 }
+    playerInfoText: { fontSize: 14 },
+    hideList: { height: 0 }
 });
 
 export default PlayerScreen;

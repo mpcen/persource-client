@@ -1,7 +1,7 @@
 import { AuthActions, AuthActionTypes } from './types';
 
 const initialState = {
-    isLoading: false,
+    isLoading: true,
     isResolvingAuth: true,
     isPreLoadComplete: false,
     userToken: null,
