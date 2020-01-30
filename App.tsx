@@ -9,10 +9,10 @@ import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
 
 import { rootReducer, RootState } from './src/store/rootReducer';
-
 import { navigationRef } from './src/navigation/navigationRef';
 import { NavRoutes } from './src/navigation/navRoutes';
 import { getHeaderTitle, shouldHeaderBeShown } from './src/navigation/navUtils';
+import { Player } from './src/screens/Player/store/types';
 
 import SignupScreen from './src/screens/Auth/Signup/SignupScreen';
 import SigninScreen from './src/screens/Auth/Signin/SigninScreen';
@@ -23,8 +23,7 @@ import PreLoadScreen from './src/screens/Auth/PreLoad/PreLoadScreen';
 import ResetPasswordScreen from './src/screens/Auth/ResetPassword/ResetPasswordScreen';
 import SearchScreen from './src/screens/Search/SearchScreen';
 import PlayerScreen from './src/screens/Player/PlayerScreen';
-
-import { Player } from './src/screens/Player/store/types';
+import AnalyticsScreen from './src/screens/Analytics/AnalyticsScreen';
 
 // NAVIGATION TYPES
 export type NewsStackParamList = {
@@ -75,6 +74,7 @@ const MainTabNavigator = () => {
     return (
         <Tab.Navigator>
             <Tab.Screen name={NavRoutes.NewsScreen} component={NewsStackScreen} />
+            <Tab.Screen name={NavRoutes.AnalyticsScreen} component={AnalyticsScreen} />
             <Tab.Screen name={NavRoutes.SearchScreen} component={SearchStackScreen} />
             <Tab.Screen name={NavRoutes.AccountScreen} component={AccountScreen} />
         </Tab.Navigator>

@@ -2,6 +2,7 @@ export enum NavRoutes {
     SignupScreen = 'SignupScreen',
     SigninScreen = 'SigninScreen',
     NewsScreen = 'NewsScreen',
+    AnalyticsScreen = 'AnalyticsScreen',
     AccountScreen = 'AccountScreen',
     ResetPasswordScreen = 'ResetPasswordScreen',
     ResolveAuthScreen = 'ResolveAuthScreen',
