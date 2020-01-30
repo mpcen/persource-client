@@ -27,27 +27,27 @@ import PlayerScreen from './src/screens/Player/PlayerScreen';
 import { Player } from './src/screens/Player/store/types';
 
 // NAVIGATION TYPES
-export type SearchStackParamList = {
-    [NavRoutes.SearchScreen]: undefined;
-    [NavRoutes.PlayerScreen]: { player: Player };
-};
 export type NewsStackParamList = {
     [NavRoutes.NewsScreen]: undefined;
-    [NavRoutes.PlayerScreen]: { player: Player };
+    [NavRoutes.PlayerScreenFromNews]: { player: Player; stackNavRoute: NavRoutes };
+};
+export type SearchStackParamList = {
+    [NavRoutes.SearchScreen]: undefined;
+    [NavRoutes.PlayerScreenFromSearch]: { player: Player; stackNavRoute: NavRoutes };
 };
 
 // NAVIGATORS
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
 const AuthStack = createStackNavigator();
-const SearchStack = createStackNavigator<SearchStackParamList>();
 const NewsStack = createStackNavigator<NewsStackParamList>();
+const SearchStack = createStackNavigator<SearchStackParamList>();
 
 const NewsStackScreen = () => {
     return (
         <NewsStack.Navigator headerMode="none">
             <NewsStack.Screen name={NavRoutes.NewsScreen} component={NewsScreen} />
-            <NewsStack.Screen name={NavRoutes.PlayerScreen} component={PlayerScreen} />
+            <NewsStack.Screen name={NavRoutes.PlayerScreenFromNews} component={PlayerScreen} />
         </NewsStack.Navigator>
     );
 };
@@ -56,7 +56,7 @@ const SearchStackScreen = () => {
     return (
         <SearchStack.Navigator headerMode="none">
             <SearchStack.Screen name={NavRoutes.SearchScreen} component={SearchScreen} />
-            <SearchStack.Screen name={NavRoutes.PlayerScreen} component={PlayerScreen} />
+            <SearchStack.Screen name={NavRoutes.PlayerScreenFromSearch} component={PlayerScreen} />
         </SearchStack.Navigator>
     );
 };

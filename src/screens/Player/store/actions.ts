@@ -31,9 +31,11 @@ export const fetchPlayerNews = ({
     switch (stackNavRoute) {
         case NavRoutes.NewsScreen:
             dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS });
+            break;
 
         case NavRoutes.SearchScreen:
             dispatch({ type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH });
+            break;
     }
 
     try {
@@ -75,9 +77,11 @@ export const refetchPlayerNews = ({
     switch (stackNavRoute) {
         case NavRoutes.NewsScreen:
             dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS });
+            break;
 
         case NavRoutes.SearchScreen:
             dispatch({ type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH });
+            break;
     }
 
     try {

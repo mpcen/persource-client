@@ -82,7 +82,12 @@ const NewsCard = ({ navigation, player, newsItem }: Props) => {
                 <TouchableOpacity
                     disabled={navigation ? false : true}
                     style={styles.cardHeaderContainer}
-                    onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player })}
+                    onPress={() =>
+                        navigation.navigate(NavRoutes.PlayerScreenFromNews, {
+                            player,
+                            stackNavRoute: NavRoutes.NewsScreen
+                        })
+                    }
                 >
                     <View>
                         <Avatar rounded source={{ uri: avatarUrl }} />

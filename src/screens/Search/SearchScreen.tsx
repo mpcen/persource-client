@@ -59,7 +59,12 @@ const SearchScreen = ({ navigation }: Props) => {
                 renderItem={({ item }: { item: Player }) => (
                     <PlayerSearchCard
                         player={item}
-                        onPress={() => navigation.navigate(NavRoutes.PlayerScreen, { player: item })}
+                        onPress={() =>
+                            navigation.navigate(NavRoutes.PlayerScreenFromSearch, {
+                                player: item,
+                                stackNavRoute: NavRoutes.SearchScreen
+                            })
+                        }
                     />
                 )}
             />

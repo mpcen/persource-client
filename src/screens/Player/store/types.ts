@@ -1,4 +1,4 @@
-import { PlayerNews } from '../../News/store/types';
+import { News } from '../../News/store/types';
 
 // GENERICS
 export type Player = {
@@ -21,8 +21,8 @@ export type PlayerState = {
     isLoading: boolean;
     isLoadingFromNews: boolean;
     isLoadingFromSearch: boolean;
-    playerNewsFromNews: PlayerNews;
-    playerNewsFromSearch: PlayerNews;
+    playerNewsFromNews: News;
+    playerNewsFromSearch: News;
     error: boolean;
     errorFromNews: boolean;
     errorFromSearch: boolean;
@@ -67,7 +67,7 @@ export type FetchPlayerNewsFromNews = {
 };
 export type FetchPlayerNewsFromNewsSuccess = {
     type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS;
-    payload: PlayerNews;
+    payload: News;
 };
 export type FetchPlayerNewsFromNewsFail = {
     type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_NEWS_FAIL;
@@ -79,7 +79,7 @@ export type FetchPlayerNewsFromSearch = {
 };
 export type FetchPlayerNewsFromSearchSuccess = {
     type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS;
-    payload: PlayerNews;
+    payload: News;
 };
 export type FetchPlayerNewsFromSearchFail = {
     type: PlayerActionTypes.FETCH_PLAYER_NEWS_FROM_SEARCH_FAIL;
@@ -91,7 +91,7 @@ export type RefetchPlayerNewsFromNews = {
 };
 export type RefetchPlayerNewsFromNewsSuccess = {
     type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_SUCCESS;
-    payload: PlayerNews;
+    payload: News;
 };
 export type RefetchPlayerNewsFromNewsFail = {
     type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_NEWS_FAIL;
@@ -104,7 +104,7 @@ export type RefetchPlayerNewsFromSearch = {
 };
 export type RefetchPlayerNewsFromSearchSuccess = {
     type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_SUCCESS;
-    payload: PlayerNews;
+    payload: News;
 };
 export type RefetchPlayerNewsFromSearchFail = {
     type: PlayerActionTypes.REFETCH_PLAYER_NEWS_FROM_SEARCH_FAIL;
