@@ -70,7 +70,9 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                 data={playerNews.docs}
                 ListEmptyComponent={!isLoading && <Text>No player news for {player.name}</Text>}
                 keyExtractor={(item: NewsItem) => item._id}
-                renderItem={({ item }: { item: NewsItem }) => <NewsCard player={player} newsItem={item} />}
+                renderItem={({ item }: { item: NewsItem }) => (
+                    <NewsCard hidePlayerInfo player={player} newsItem={item} />
+                )}
                 onEndReached={() => {
                     const { nextPage } = playerNews;
 

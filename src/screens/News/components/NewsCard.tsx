@@ -13,10 +13,11 @@ import { NavRoutes } from '../../../navigation/navRoutes';
 type Props = {
     player: Player;
     newsItem: NewsItem;
+    hidePlayerInfo?: boolean;
     navigation?: NewsScreenNavigationProp;
 };
 
-const NewsCard = ({ navigation, player, newsItem }: Props) => {
+const NewsCard = ({ navigation, player, newsItem, hidePlayerInfo }: Props) => {
     const { avatarUrl, name, position, teamId, id } = player;
     const { content, username, time, platform, childNodes, contentId } = newsItem;
     const key = `${platform}-${username}-${contentId}`;
@@ -78,30 +79,34 @@ const NewsCard = ({ navigation, player, newsItem }: Props) => {
     return (
         <Card containerStyle={styles.cardContainer}>
             <View testID="card-player-news-item">
-                <TouchableOpacity
-                    disabled={navigation ? false : true}
-                    style={styles.cardHeaderContainer}
-                    onPress={() =>
-                        navigation.navigate(NavRoutes.PlayerScreenFromNews, {
-                            player,
-                            stackNavRoute: NavRoutes.NewsScreen
-                        })
-                    }
-                >
-                    <View>
-                        <Avatar rounded source={{ uri: avatarUrl }} />
-                    </View>
-                    <View>
-                        <Text style={styles.playerText}>{name}</Text>
-                        <View style={styles.playerInfoTextContainer}>
-                            <Text style={styles.playerInfoText}>{position}</Text>
-                            <Text style={styles.playerInfoText}> | </Text>
-                            <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
-                        </View>
-                    </View>
-                </TouchableOpacity>
+                {!hidePlayerInfo && (
+                    <>
+                        <TouchableOpacity
+                            disabled={navigation ? false : true}
+                            style={styles.cardHeaderContainer}
+                            onPress={() =>
+                                navigation.navigate(NavRoutes.PlayerScreenFromNews, {
+                                    player,
+                                    stackNavRoute: NavRoutes.NewsScreen
+                                })
+                            }
+                        >
+                            <View>
+                                <Avatar rounded source={{ uri: avatarUrl }} />
+                            </View>
+                            <View>
+                                <Text style={styles.playerText}>{name}</Text>
+                                <View style={styles.playerInfoTextContainer}>
+                                    <Text style={styles.playerInfoText}>{position}</Text>
+                                    <Text style={styles.playerInfoText}> | </Text>
+                                    <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
+                                </View>
+                            </View>
+                        </TouchableOpacity>
 
-                <Divider style={styles.dividerContainer} />
+                        <Divider style={styles.dividerContainer} />
+                    </>
+                )}
 
                 <View style={styles.cardSourceContainer}>
                     <Icon iconStyle={styles.socialIcon} size={12} type="material-community" name="twitter" />
