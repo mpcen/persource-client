@@ -53,7 +53,12 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                     </TouchableOpacity>
 
                     <View style={styles.cardContentContainer}>
-                        <Avatar size="large" rounded source={{ uri: avatarUrl }} />
+                        <Avatar
+                            containerStyle={styles.playerAvatar}
+                            size="large"
+                            rounded
+                            source={{ uri: avatarUrl }}
+                        />
 
                         <View style={styles.playerInfoContainer}>
                             <Text style={styles.playerName}>{name}</Text>
@@ -66,7 +71,7 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                     </View>
                 </View>
 
-                <View style={styles.buttonGroupContainer}>
+                <View>
                     <ButtonGroup
                         containerStyle={styles.buttonGroup}
                         onPress={setSelectedTabIndex}
@@ -132,14 +137,18 @@ const styles = StyleSheet.create({
         padding: 0,
         borderBottomWidth: 0
     },
-    topCardContainer: { padding: 14 },
+    topCardContainer: { paddingLeft: 14, paddingRight: 14, paddingBottom: 14, paddingTop: 0 },
     goBackButton: {
         backgroundColor: 'white',
-        marginLeft: -16,
+        marginLeft: -14,
         alignSelf: 'flex-start'
     },
     cardContentContainer: { flexDirection: 'row' },
-    buttonGroupContainer: {},
+    playerAvatar: {
+        borderColor: '#2089dc',
+        borderStyle: 'solid',
+        borderWidth: 2
+    },
     buttonGroup: {
         marginLeft: 0,
         marginRight: 0,
