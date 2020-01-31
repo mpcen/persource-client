@@ -5,7 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 import { useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ButtonGroup, Avatar, Card, Text } from 'react-native-elements';
-import { EvilIcons } from '@expo/vector-icons';
+import { EvilIcons, Ionicons, MaterialIcons, AntDesign, Entypo } from '@expo/vector-icons';
 
 import { NewsStackParamList, SearchStackParamList } from '../../../App';
 import { NavRoutes } from '../../navigation/navRoutes';
@@ -25,8 +25,15 @@ type Props = {
 };
 enum PlayerScreenTab {
     News,
-    Analytics
+    GameLogs,
+    Rankings,
+    Projections
 }
+
+const NewsButton = () => <Ionicons name="md-paper" size={28} />;
+const GameLogsButton = () => <MaterialIcons name="history" size={28} />;
+const RankingsButton = () => <Entypo name="medal" size={28} />;
+const ProjectionsButton = () => <AntDesign name="barschart" size={28} />;
 
 const PlayerScreen = ({ route, navigation }: Props) => {
     const { player, stackNavRoute } = route.params;
@@ -39,30 +46,40 @@ const PlayerScreen = ({ route, navigation }: Props) => {
 
     return (
         <SafeAreaView>
-            <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.pop()}>
-                <EvilIcons name="chevron-left" size={40} />
-            </TouchableOpacity>
-
             <Card containerStyle={styles.cardContainer}>
-                <View style={styles.cardContentContainer}>
-                    <Avatar size="large" rounded source={{ uri: avatarUrl }} />
+                <View style={styles.topCardContainer}>
+                    <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.pop()}>
+                        <EvilIcons name="chevron-left" size={44} />
+                    </TouchableOpacity>
 
-                    <View style={styles.playerInfoContainer}>
-                        <Text style={styles.playerName}>{name}</Text>
-                        <View style={styles.playerSubInfoContainer}>
-                            <Text style={styles.playerInfoText}>{position}</Text>
-                            <Text style={styles.playerInfoText}> | </Text>
-                            <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
+                    <View style={styles.cardContentContainer}>
+                        <Avatar size="large" rounded source={{ uri: avatarUrl }} />
+
+                        <View style={styles.playerInfoContainer}>
+                            <Text style={styles.playerName}>{name}</Text>
+                            <View style={styles.playerSubInfoContainer}>
+                                <Text style={styles.playerInfoText}>{position}</Text>
+                                <Text style={styles.playerInfoText}> | </Text>
+                                <Text style={styles.playerInfoText}>{getTeamById(teamId).abbrev}</Text>
+                            </View>
                         </View>
                     </View>
                 </View>
-            </Card>
 
-            <ButtonGroup
-                onPress={setSelectedTabIndex}
-                selectedIndex={selectedTabIndex}
-                buttons={['News', 'Analytics']}
-            />
+                <View style={styles.buttonGroupContainer}>
+                    <ButtonGroup
+                        containerStyle={styles.buttonGroup}
+                        onPress={setSelectedTabIndex}
+                        selectedIndex={selectedTabIndex}
+                        buttons={[
+                            { element: NewsButton },
+                            { element: GameLogsButton },
+                            { element: RankingsButton },
+                            { element: ProjectionsButton }
+                        ]}
+                    />
+                </View>
+            </Card>
 
             <FlatList
                 style={selectedTabIndex === PlayerScreenTab.News ? null : styles.hideList}
@@ -88,9 +105,21 @@ const PlayerScreen = ({ route, navigation }: Props) => {
                 }}
             />
 
-            {selectedTabIndex === PlayerScreenTab.Analytics && (
-                <View style={selectedTabIndex === PlayerScreenTab.Analytics ? null : styles.hideList}>
-                    <Text>Analytics articles, charts, etc go in here</Text>
+            {selectedTabIndex === PlayerScreenTab.GameLogs && (
+                <View style={selectedTabIndex === PlayerScreenTab.GameLogs ? null : styles.hideList}>
+                    <Text>Game Logs</Text>
+                </View>
+            )}
+
+            {selectedTabIndex === PlayerScreenTab.Rankings && (
+                <View style={selectedTabIndex === PlayerScreenTab.Rankings ? null : styles.hideList}>
+                    <Text>Rankings</Text>
+                </View>
+            )}
+
+            {selectedTabIndex === PlayerScreenTab.Projections && (
+                <View style={selectedTabIndex === PlayerScreenTab.Projections ? null : styles.hideList}>
+                    <Text>Projections</Text>
                 </View>
             )}
         </SafeAreaView>
@@ -98,9 +127,29 @@ const PlayerScreen = ({ route, navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-    goBackButton: { alignSelf: 'flex-start', justifyContent: 'flex-end' },
-    cardContainer: { marginTop: 0 },
+    cardContainer: {
+        margin: 0,
+        padding: 0,
+        borderBottomWidth: 0
+    },
+    topCardContainer: { padding: 14 },
+    goBackButton: {
+        backgroundColor: 'white',
+        marginLeft: -16,
+        alignSelf: 'flex-start'
+    },
     cardContentContainer: { flexDirection: 'row' },
+    buttonGroupContainer: {},
+    buttonGroup: {
+        marginLeft: 0,
+        marginRight: 0,
+        marginBottom: 0,
+        marginTop: 0,
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+        borderRightWidth: 0,
+        borderLeftWidth: 0
+    },
     playerInfoContainer: { flex: 1, marginLeft: 8 },
     playerName: { fontSize: 20 },
     playerSubInfoContainer: { flexDirection: 'row' },

@@ -1,12 +1,13 @@
 import React from 'react';
+import thunk from 'redux-thunk';
 import { useSelector } from 'react-redux';
 import { NavigationNativeContainer } from '@react-navigation/native';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import { createBottomTabNavigator } from '@react-navigation/bottom-tabs';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createStore, applyMiddleware } from 'redux';
-import thunk from 'redux-thunk';
 import { Provider } from 'react-redux';
+import { Ionicons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { rootReducer, RootState } from './src/store/rootReducer';
 import { navigationRef } from './src/navigation/navigationRef';
@@ -72,11 +73,37 @@ const AuthStackNavigator = () => {
 
 const MainTabNavigator = () => {
     return (
-        <Tab.Navigator>
-            <Tab.Screen name={NavRoutes.NewsScreen} component={NewsStackScreen} />
-            <Tab.Screen name={NavRoutes.AnalyticsScreen} component={AnalyticsScreen} />
-            <Tab.Screen name={NavRoutes.SearchScreen} component={SearchStackScreen} />
-            <Tab.Screen name={NavRoutes.AccountScreen} component={AccountScreen} />
+        <Tab.Navigator
+            screenOptions={({ route }) => ({
+                tabBarIcon: ({ color, size }) => {
+                    if (route.name === NavRoutes.NewsScreen) {
+                        return <Ionicons name="md-paper" size={size} color={color} />;
+                    } else if (route.name == NavRoutes.AnalyticsScreen) {
+                        return <MaterialCommunityIcons name="chart-line" size={size} color={color} />;
+                    } else if (route.name == NavRoutes.SearchScreen) {
+                        return <Ionicons name="ios-search" size={size} color={color} />;
+                    } else if (route.name === NavRoutes.AccountScreen) {
+                        return <MaterialCommunityIcons name="account" size={size} color={color} />;
+                    }
+                }
+            })}
+        >
+            <Tab.Screen name={NavRoutes.NewsScreen} options={{ title: 'News' }} component={NewsStackScreen} />
+            <Tab.Screen
+                name={NavRoutes.AnalyticsScreen}
+                options={{ title: 'Analytics' }}
+                component={AnalyticsScreen}
+            />
+            <Tab.Screen
+                name={NavRoutes.SearchScreen}
+                options={{ title: 'Search' }}
+                component={SearchStackScreen}
+            />
+            <Tab.Screen
+                name={NavRoutes.AccountScreen}
+                options={{ title: 'Account' }}
+                component={AccountScreen}
+            />
         </Tab.Navigator>
     );
 };
