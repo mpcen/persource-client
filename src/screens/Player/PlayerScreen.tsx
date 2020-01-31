@@ -5,6 +5,7 @@ import { RouteProp } from '@react-navigation/native';
 import { useScrollToTop } from '@react-navigation/native';
 import { StackNavigationProp } from '@react-navigation/stack';
 import { ButtonGroup, Avatar, Card, Text } from 'react-native-elements';
+import { EvilIcons } from '@expo/vector-icons';
 
 import { NewsStackParamList, SearchStackParamList } from '../../../App';
 import { NavRoutes } from '../../navigation/navRoutes';
@@ -38,12 +39,12 @@ const PlayerScreen = ({ route, navigation }: Props) => {
 
     return (
         <SafeAreaView>
-            <TouchableOpacity onPress={() => navigation.pop()}>
-                <Text>BACK</Text>
+            <TouchableOpacity style={styles.goBackButton} onPress={() => navigation.pop()}>
+                <EvilIcons name="chevron-left" size={40} />
             </TouchableOpacity>
 
-            <Card>
-                <View style={styles.cardContainer}>
+            <Card containerStyle={styles.cardContainer}>
+                <View style={styles.cardContentContainer}>
                     <Avatar size="large" rounded source={{ uri: avatarUrl }} />
 
                     <View style={styles.playerInfoContainer}>
@@ -97,7 +98,9 @@ const PlayerScreen = ({ route, navigation }: Props) => {
 };
 
 const styles = StyleSheet.create({
-    cardContainer: { flexDirection: 'row' },
+    goBackButton: { alignSelf: 'flex-start', justifyContent: 'flex-end' },
+    cardContainer: { marginTop: 0 },
+    cardContentContainer: { flexDirection: 'row' },
     playerInfoContainer: { flex: 1, marginLeft: 8 },
     playerName: { fontSize: 20 },
     playerSubInfoContainer: { flexDirection: 'row' },
